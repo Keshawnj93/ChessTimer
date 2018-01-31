@@ -37,8 +37,8 @@ public class Menu extends Activity {
 
         btStart.setOnClickListener(e -> {
             // if time is 00:00, error
-            if ((spMin1.getSelectedItem().toString().equals("0") && spSec1.getSelectedItem().toString().equals("0")) ||
-                    (spMin2.getSelectedItem().toString().equals("0") && spSec2.getSelectedItem().toString().equals("0"))){
+            if ((spMin1.getSelectedItem().toString().equals("00") && spSec1.getSelectedItem().toString().equals("00")) ||
+                    (spMin2.getSelectedItem().toString().equals("00") && spSec2.getSelectedItem().toString().equals("00"))){
 
             }
 

@@ -43,15 +43,25 @@ public class MainActivity extends AppCompatActivity {
 
         tvTimep1 = findViewById(R.id.tvTimep1);
         tvTimep1.setRotation(270);
-        tvTimep1.setText("01:00:000");
         tvTimep1.setTextColor(Color.parseColor("#000000"));
         tvTimep1.setTextSize(32);
+        if (turn.equals("1")){
+            tvTimep1.setText("START");
+        }
+        else{
+            tvTimep1.setText(milliToString("1"));
+        }
 
         tvTimep2 = findViewById(R.id.tvTimep2);
         tvTimep2.setRotation(270);
-        tvTimep2.setText("01:00:000");
         tvTimep2.setTextColor(Color.parseColor("#ffffff"));
         tvTimep2.setTextSize(32);
+        if (turn.equals("2")){
+            tvTimep2.setText("START");
+        }
+        else{
+            tvTimep2.setText(milliToString("2"));
+        }
 
 
         player1.setOnClickListener(v -> {
@@ -149,13 +159,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void pauseTimer(String t){
         if (t.equals("1")){
-            mCountDownTimer1.cancel();
+            try{
+                mCountDownTimer1.cancel();
+            } catch (Exception e){
+                //
+            }
             timer1Running = false;
             //player1.setBackgroundColor(Color.parseColor("#a05555"));
         }
 
         else if (t.equals("2")){
-            mCountDownTimer2.cancel();
+            try{
+                mCountDownTimer2.cancel();
+            } catch (Exception e){
+                //
+            }
             timer2Running = false;
             //player2.setBackgroundColor(Color.parseColor("#a05555"));
         }
@@ -194,16 +212,35 @@ public class MainActivity extends AppCompatActivity {
     private void updateCountDownText(){
         int minutes = (int) (mTimeLeft1 / 1000) / 60;
         int seconds = (int) (mTimeLeft1 / 1000) % 60;
-        int centiseconds = (int) (mTimeLeft1 % 1000);
+        int milli = (int) (mTimeLeft1 % 1000);
 
-        String formattedTime = String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, centiseconds);
+        String formattedTime = String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, milli);
         tvTimep1.setText(formattedTime);
 
         minutes = (int) (mTimeLeft2 / 1000) / 60;
         seconds = (int) (mTimeLeft2 / 1000) % 60;
-        centiseconds = (int) (mTimeLeft2 % 1000);
+        milli = (int) (mTimeLeft2 % 1000);
 
-        formattedTime = String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, centiseconds);
+        formattedTime = String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, milli);
         tvTimep2.setText(formattedTime);
+    }
+
+    private  String milliToString(String t){
+        int minutes, seconds, milli;
+        if (t.equals("1")){
+            minutes = (int) (STARTTIME1 / 1000) / 60;
+            seconds = (int) (STARTTIME1 / 1000) % 60;
+            milli = (int) (STARTTIME1 % 1000);
+            return String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, milli);
+        }
+
+        else if (t.equals("2")){
+            minutes = (int) (STARTTIME2 / 1000) / 60;
+            seconds = (int) (STARTTIME2 / 1000) % 60;
+            milli = (int) (STARTTIME2 % 1000);
+            return String.format(Locale.getDefault(),"%02d:%02d:%03d", minutes, seconds, milli);
+        }
+
+        return "ERR";
     }
 }
